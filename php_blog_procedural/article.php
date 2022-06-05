@@ -2,6 +2,8 @@
 
 require 'includes/database.php';
 
+$conn = getDB();
+
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     $sql = "SELECT *
@@ -32,8 +34,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <?php else: ?>
 
 <article>
- <h2><?= $article['title']; ?></h2>
- <p><?= $article['content']; ?></p>
+ <h2><?= htmlspecialchars($article['title']); ?></h2>
+ <p><?= htmlspecialchars($article['content']); ?></p>
 </article>
 
 <?php endif; ?>
