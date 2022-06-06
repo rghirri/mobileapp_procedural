@@ -2,6 +2,7 @@
 
  require 'includes/database.php';
  require 'includes/article-functions.php';
+ require 'includes/url-function.php';
 
  $title         = '';
  $content       = '';
@@ -45,14 +46,7 @@ if (empty($errors)) {
       if (mysqli_stmt_execute($stmt)){
           $id = mysqli_insert_id($conn);
 
-      if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ){
-            $protocol = 'https';
-      }else
-      {
-            $protocol = 'http';
-      }    
-         header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/article.php?id=$id"); 
-         exit;
+      redirect("/article.php?id=$id");
          
       }else{
 
