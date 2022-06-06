@@ -24,6 +24,7 @@ if ($results === false) {
 <?php else: ?>
 
 <ul>
+ <a href="/new-article.php">New Article</a>
  <?php foreach ($articles as $article): ?>
  <li>
   <article>

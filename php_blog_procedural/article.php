@@ -1,26 +1,13 @@
 <?php
 
 require 'includes/database.php';
+require 'includes/article-functions.php';
 
 $conn = getDB();
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+if (isset($_GET['id'])) {
 
-    $sql = "SELECT *
-            FROM article
-            WHERE id = " . $_GET['id'];
-
-    $results = mysqli_query($conn, $sql);
-
-    if ($results === false) {
-
-        echo mysqli_error($conn);
-
-    } else {
-
-        $article = mysqli_fetch_assoc($results);
-
-    }
+   $article = getArticle($conn, $_GET['id']);
 
 } else {
     $article = null;
@@ -37,7 +24,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
  <h2><?= htmlspecialchars($article['title']); ?></h2>
  <p><?= htmlspecialchars($article['content']); ?></p>
 </article>
-
+<a href="edit-article.php?id=<?= $article['id']; ?>">Edit</a>
 <?php endif; ?>
 
 <?php require 'includes/footer.php'; ?>
