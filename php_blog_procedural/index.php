@@ -34,7 +34,17 @@ if ($results === false) {
 <?php else: ?>
 
 <ul>
- <a href="/new-article.php">New Article</a>
+ <?php if ( ! isLoggedIn()):?>
+ <div style="display:none;">
+  <a href="/new-article.php">New Article</a>
+ </div>
+ <?php else: ?>
+ <div>
+  <a href="/new-article.php">New Article</a>
+ </div>
+
+ <?php endif; ?>
+
  <?php foreach ($articles as $article): ?>
  <li>
   <article>
