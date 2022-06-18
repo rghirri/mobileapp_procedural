@@ -1,6 +1,9 @@
 <?php
 
 require 'includes/database.php';
+require 'includes/auth.php';
+
+session_start();
 
 $conn = getDB();
 
@@ -18,6 +21,13 @@ if ($results === false) {
 
 ?>
 <?php require 'includes/header.php'; ?>
+
+<?php if (isLoggedIn()): ?>
+
+<p>You are logged in. <a href="logout.php">Log out</a></p>
+<?php else: ?>
+<p>You are not logged in <a href="login.php">Login</a></p>
+<?php endif; ?>
 
 <?php if (empty($articles)): ?>
 <p>No articles found.</p>

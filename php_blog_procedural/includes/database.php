@@ -11,8 +11,8 @@ function getDB()
 
     $db_host = "localhost";
     $db_name = "cms_db";
-    $db_user = "cms_user";
-    $db_pass = "fGd9g)LfjpTSObAK";
+    $db_user = "root";
+    $db_pass = "";
 
     $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
