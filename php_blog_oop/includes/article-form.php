@@ -1,7 +1,7 @@
-<?php if (! empty($errors)):  ?>
+<?php if (! empty($article->errors)):  ?>
 
 <ul>
- <?php foreach ($errors as $error): ?>
+ <?php foreach ($article->errors as $error): ?>
  <li><?= $error  ?></li>
  <?php endforeach; ?>
 </ul>
@@ -12,18 +12,18 @@
 
  <div>
   <label for="title">Title</label>
-  <input name="title" id="title" placeholder="Article title" value="<?= htmlspecialchars($title); ?>">
+  <input name="title" id="title" placeholder="Article title" value="<?= htmlspecialchars($article->title); ?>">
  </div>
 
  <div>
   <label for="content">Content</label>
   <textarea name="content" rows="4" cols="40" id="content"
-   placeholder="Article content"><?= htmlspecialchars($content); ?></textarea>
+   placeholder="Article content"><?= htmlspecialchars($article->content); ?></textarea>
  </div>
 
  <div>
   <label for="published_at">Publication date and time</label>
-  <input type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($published_at); ?>">
+  <input type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?>">
  </div>
 
  <button>Save</button>

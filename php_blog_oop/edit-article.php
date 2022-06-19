@@ -1,7 +1,8 @@
 <?php
 
-require 'includes/database.php';
-require 'includes/article-functions.php';
+require 'classes/Database.php';
+require 'classes/Article.php';
+// require 'includes/article-functions.php';
 require 'includes/url-function.php';
 require 'includes/auth.php';
 
@@ -13,22 +14,16 @@ if ( ! isLoggedIn()) {
 
 }
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConn();
 
 if (isset($_GET['id'])) {
 
-   $article = getArticle($conn, $_GET['id']);
+   $article = Article::getById($conn, $_GET['id']);
+    // var_dump($article);
 
-   if ($article){
-    
-     $id           = $article['id'];
-     $title        = $article['title'];
-     $content      = $article['content'];
-     $published_at = $article['published_at'];
-
-   }else
-   {
-     die("article not found");
+   if (! $article){
+    die("article not found");
    }
 
 } else {
@@ -39,54 +34,16 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $title   = $_POST['title'];
+    $article->title        = $_POST['title'];
+    $article->content      = $_POST['content'];
+    $article->published_at = $_POST['published_at'];
 
-    $content = $_POST['content'];
+      if ($article->update($conn)){
 
-    $published_at = $_POST['published_at'];
-
-   $errors = validateArticle($title, $content, $published_at);
-
-    //var_dump($errors); exit;
-    
-  if (empty($errors)) {
-
-    $sql = "UPDATE article
-            SET title   = ?,
-                content = ?,
-                published_at = ?
-            WHERE id = ?"; 
-
-    //var_dump($sql); exit;                
-
-    $stmt = mysqli_prepare($conn, $sql);
-
-    if ($stmt === false) {
-
-        echo mysqli_error($conn);
-
-    } else {
-
-        if ($published_at == ''){
-            $published_at = null;
-        }
-
-       mysqli_stmt_bind_param($stmt, "sssi", $title, $content, $published_at, $id);
-
-      if (mysqli_stmt_execute($stmt)){
-
-      redirect("/article.php?id=$id");
+      redirect("/article.php?id={$article->id}");
          
-      }else{
-
-          echo mysqli_stmt_error($stmt);
-          
-        }      
+      }  
     }
-  }
-
-}
-
 ?>
 
 <?php require 'includes/header.php'; ?>

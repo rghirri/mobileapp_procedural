@@ -1,6 +1,7 @@
 <?php
 
 require 'classes/Database.php';
+require 'classes/Article.php';
 require 'includes/auth.php';
 
 session_start();
@@ -8,16 +9,8 @@ session_start();
 $db = new Database();
 $conn = $db->getConn();
 
-$sql = "SELECT *
-        FROM article
-        ORDER BY published_at;";
-try {
-  $results = $conn->query($sql);
-  $articles = $results->fetchAll(PDO::FETCH_ASSOC);
-
-} catch(PDOException $e) {
-  echo "Table name error: " . $e->getMessage();
-}
+$articles = Article::getAll($conn);
+ //var_dump($articles);
 
 ?>
 <?php require 'includes/header.php'; ?>
@@ -48,8 +41,8 @@ try {
  <?php foreach ($articles as $article): ?>
  <li>
   <article>
-   <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
-   <p><?= htmlspecialchars($article['content']); ?></p>
+   <h2><a href="article.php?id=<?= $article->id; ?>"><?= htmlspecialchars($article->title); ?></a></h2>
+   <p><?= htmlspecialchars($article->content); ?></p>
   </article>
  </li>
  <?php endforeach; ?>
