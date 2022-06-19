@@ -1,7 +1,7 @@
 <?php
-
+require 'includes/init.php';
 //require 'includes/url-function.php';
-require 'classes/Url.php';
+//require 'classes/Url.php';
 
 session_start();
 

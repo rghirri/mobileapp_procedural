@@ -1,20 +1,18 @@
 <?php
-
-require 'classes/Database.php';
-require 'classes/Article.php';
+require 'includes/init.php';
+// require 'classes/Database.php';
+// require 'classes/Article.php';
 //require 'includes/article-functions.php';
 //require 'includes/url-function.php';
-require 'classes/Url.php';
-require 'classes/Auth.php';
+// require 'classes/Url.php';
+// require 'classes/Auth.php';
 
-session_start();
 
 if (!Auth::isLoggedIn()) {
     die('unauthorised');
 }
 
-$db = new Database();
-$conn = $db->getConn();
+$conn = require 'includes/db.php';
 
 if (isset($_GET['id'])) {
     $article = Article::getById($conn, $_GET['id']);

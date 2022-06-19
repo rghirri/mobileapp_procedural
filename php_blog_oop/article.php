@@ -1,14 +1,13 @@
 <?php
-
-require 'classes/Database.php';
-require 'classes/Article.php';
+require 'includes/init.php';
+// require 'classes/Database.php';
+// require 'classes/Article.php';
 //require 'includes/article-functions.php';
-require 'classes/Auth.php';
+// require 'classes/Auth.php';
 
-session_start();
 
-$db = new Database();
-$conn = $db->getConn();
+
+$conn = require 'includes/db.php';
 
 if (isset($_GET['id'])) {
 
