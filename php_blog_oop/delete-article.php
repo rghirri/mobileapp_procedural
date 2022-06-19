@@ -2,13 +2,14 @@
 
 require 'classes/Database.php';
 require 'classes/Article.php';
-require 'includes/article-functions.php';
-require 'includes/url-function.php';
-require 'includes/auth.php';
+//require 'includes/article-functions.php';
+//require 'includes/url-function.php';
+require 'classes/Url.php';
+require 'classes/Auth.php';
 
 session_start();
 
-if (!isLoggedIn()) {
+if (!Auth::isLoggedIn()) {
     die('unauthorised');
 }
 
@@ -28,7 +29,8 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($article->delete($conn)) {
-        redirect('/index.php');
+        //redirect('/index.php');
+        Url::redirect('/index.php');
     }
     
 }

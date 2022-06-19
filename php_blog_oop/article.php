@@ -2,8 +2,8 @@
 
 require 'classes/Database.php';
 require 'classes/Article.php';
-require 'includes/article-functions.php';
-require 'includes/auth.php';
+//require 'includes/article-functions.php';
+require 'classes/Auth.php';
 
 session_start();
 
@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 <article>
  <h2><?= htmlspecialchars($article->title); ?></h2>
  <p><?= htmlspecialchars($article->content); ?></p>
- <?php if ( ! isLoggedIn()):?>
+ <?php if (!Auth::isLoggedIn()):?>
 
  <div style="display:none;">
   <a href="edit-article.php?id=<?= $article->id; ?>">Edit</a>

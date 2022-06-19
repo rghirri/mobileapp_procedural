@@ -2,13 +2,14 @@
 
 require 'classes/Database.php';
 require 'classes/Article.php';
-require 'includes/article-functions.php';
-require 'includes/url-function.php';
-require 'includes/auth.php';
+//require 'includes/article-functions.php';
+//require 'includes/url-function.php';
+require 'classes/Url.php';
+require 'classes/Auth.php';
 
 session_start();
 
-if (!isLoggedIn()) {
+if (!Auth::isLoggedIn()) {
     die('unauthorised');
 }
 
@@ -24,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $article->published_at = $_POST['published_at'];
 
     if ($article->create($conn)) {
-        redirect("/article.php?id={$article->id}");
+        //redirect("/article.php?id={$article->id}");
+        Url::redirect("/article.php?id={$article->id}");
     }
 }
 ?>

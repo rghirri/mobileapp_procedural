@@ -1,35 +1,35 @@
-<?php 
-require 'includes/url-function.php';
-
+<?php
+//require 'includes/url-function.php';
+require 'classes/Url.php';
+require 'classes/User.php';
+require 'classes/Database.php';
 
 session_start();
 
- if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  
+    $db = new Database();
+    $conn = $db->getConn();
 
-   if ($_POST['username'] == 'Rayaa' && $_POST['password'] == 'password'){
-     session_regenerate_id(true);
+    if (User::authenticate($conn, $_POST['username'], $_POST['password'])) {
+        session_regenerate_id(true);
 
-    $_SESSION['is_logged_in'] = true;
-    
-    redirect('/');
-    
-   }else
-   {
+        $_SESSION['is_logged_in'] = true;
+            //redirect('/');
+            Url::redirect('/');
+    } else {
+        //$_SESSION['is_logged_in'] = false;
 
-    //$_SESSION['is_logged_in'] = false;
-
-    $error = "login incorrect";
-
-   }
- }
-
+        $error = 'login incorrect';
+    }
+}
 ?>
 
 <?php require 'includes/header.php'; ?>
 
 <h2>Login</h2>
 
-<?php if(! empty($error)): ?>
+<?php if (!empty($error)): ?>
 <p><?= $error ?></p>
 <?php endif; ?>
 

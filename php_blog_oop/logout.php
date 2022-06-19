@@ -1,6 +1,7 @@
 <?php
 
-require 'includes/url-function.php';
+//require 'includes/url-function.php';
+require 'classes/Url.php';
 
 session_start();
 
@@ -16,4 +17,5 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-redirect('/');
+//redirect('/');
+Url::redirect('/');
